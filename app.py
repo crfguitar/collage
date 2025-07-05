@@ -45,7 +45,9 @@ def index():
             font = ImageFont.truetype('arial.ttf', font_size)
         except IOError:
             font = ImageFont.load_default()
-        text_width, text_height = draw.textsize(style_prompt, font=font)
+        bbox = draw.textbbox((0, 0), style_prompt, font=font)
+        text_width = bbox[2] - bbox[0]
+        text_height = bbox[3] - bbox[1]
         draw.text(((collage_width - text_width) / 2, collage_height - 40), style_prompt, fill='black', font=font)
 
         output = io.BytesIO()
